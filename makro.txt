@@ -1,4 +1,4 @@
-Sub Petla_z_poprzedniego()
+Sub Petla_z_poprzedniego() 
  ilosc_wierszy = ActiveSheet.UsedRange.Rows.Count - 1
  Dim rg As Range
  ActiveSheet.Range("a2", ActiveSheet.Range("a16").End(xlDown)).Select
@@ -14,7 +14,6 @@ Sub Petla_z_poprzedniego()
     ActiveCell.Offset(1, 0).Range("A1").Select
  End If
  Loop
- 
  Range("A2").Activate
  Do While ActiveCell.Value <> ""
     If Weekday(ActiveCell) = 6 Then
@@ -37,10 +36,11 @@ Sub Petla_z_poprzedniego()
         ActiveCell.Offset(0, 1).Value = cena
     Else:
         ActiveCell.Offset(1, 0).Activate
-        
     End If
 Loop
 End Sub
+ 
+ 
  
  Sub Petla_z_nastepnego()
  ilosc_wierszy = ActiveSheet.UsedRange.Rows.Count - 1
@@ -52,19 +52,18 @@ End Sub
  Range("A2").Activate
  Do While ActiveCell.Value <> ""
  If ActiveCell.Offset(1, 0).Value - ActiveCell.Value = 0 Then
- 'Or ActiveCell.Offset(1, 0) Then dorobic warunek ze usuwamy weekendy
+
     a = ActiveCell.Row
     Rows(a + 1).Delete
  Else:
     ActiveCell.Offset(1, 0).Range("A1").Select
  End If
  Loop
- 
  Range("A2").Activate
  Do While ActiveCell.Value <> ""
     If Weekday(ActiveCell) = 6 Then
         If Weekday(ActiveCell.Offset(1, 0)) <> 2 Then
-            'a = ActiveCell.Row
+            
             cena = ActiveCell.Offset(1, 1).Value
             ActiveCell.Offset(1, 0).Activate
             Rows(ActiveCell.Row).Insert
@@ -96,7 +95,7 @@ End Sub
  Do While ActiveCell.Value <> ""
  i = 0
  If ActiveCell.Offset(1, 0).Value - ActiveCell.Value = 0 Then
- 'Or ActiveCell.Offset(1, 0) Then dorobic warunek ze usuwamy weekendy
+ 
     a = ActiveCell.Row
     Rows(a + 1).Delete
  Else:
@@ -106,43 +105,26 @@ End Sub
  
  Range("A2").Activate
  Do While ActiveCell.Value <> ""
- 
- 
- 
-            'a = ActiveCell.Row
+
             cena = (ActiveCell.Offset(0, 1).Value + ActiveCell.Offset(1, 1).Value) / 2
-            
-            
-            
-            
             Do While ActiveCell.Offset(1, 0).Value - ActiveCell.Value > 1
-                
             If Weekday(ActiveCell) = 6 Then
                 If Weekday(ActiveCell.Offset(1, 0)) <> 2 Then
-                    
                     ActiveCell.Offset(1, 0).Activate
                     Rows(ActiveCell.Row).Insert
                     ActiveCell.Value = ActiveCell.Offset(-1, 0).Value + 3
                     ActiveCell.Offset(0, 1).Value = cena
-                
                 Else
                 Exit Do
-                
-                
-                
-                
                 End If
-            
             Else
                 ActiveCell.Offset(1, 0).Activate
                 Rows(ActiveCell.Row).Insert
                 ActiveCell.Value = ActiveCell.Offset(-1, 0).Value + 1
                 ActiveCell.Offset(0, 1).Value = cena
             End If
-            
  Loop
  ActiveCell.Offset(1, 0).Range("A1").Select
-            
  Loop
 
 End Sub
